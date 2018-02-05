@@ -30,7 +30,7 @@ io.on('connect', function(socket) {
   var questionNum = 0; // keep count of question, used for IF condition.
   socket.on('loaded', function(){// we wait until the client has loaded and contacted us that it is ready to go.
 
-  socket.emit('answer',"Hey, Hello I am \"___*-\" a simple chat bot example."); //We start with the introduction;
+  socket.emit('answer',"Hey, Hello I am Old Man Winter, a simple chat bot that likes to banter about the weather."); //We start with the introduction;
   setTimeout(timedQuestion, 2500, socket,"What is your Name?"); // Wait a moment and respond with a question.
 
 });
@@ -51,48 +51,41 @@ function bot(data,socket,questionNum) {
 
 /// These are the main statments that make up the conversation.
   if (questionNum == 0) {
-  answer= 'Hello ' + input + ' :-)';// output response
-  waitTime =2000;
-  question = 'How old are you?';			    	// load next question
+  answer= 'Why, hello there! A hearty winter welcome to you ' + input + ' !';// output response
+  waitTime =2500;
+  question = 'So tell me... What is the temperature outside (in degrees Fahrenheit)?';			    	// load next question
   }
   else if (questionNum == 1) {
-  answer= 'Really ' + input + ' Years old? So that means you where born in: ' + (2018-parseInt(input));// output response
+  answer= 'Really ' + input + ' degrees out in Fahrenheit? So that is like ' + Math.round((parseInt(input) - 32) / 1.8 ) + ' in Celsius';// output response
   waitTime =2000;
   question = 'Where do you live?';			    	// load next question
   }
   else if (questionNum == 2) {
-  answer= ' Cool! I have never been to ' + input+'.';
+  answer= ' Cool! I have heard that ' + input + ' is a nice place.';
   waitTime =2000;
-  question = 'Whats your favorite Color?';			    	// load next question
+  question = 'Do you think it\'s cold in ' + input + '?';			    	// load next question
   }
   else if (questionNum == 3) {
-  answer= 'Ok, ' + input+' it is.';
-  socket.emit('changeBG',input.toLowerCase());
-  waitTime = 2000;
-  question = 'Can you still read the font?';			    	// load next question
-  }
-  else if (questionNum == 4) {
     if(input.toLowerCase()==='yes'|| input===1){
-      answer = 'Perfect!';
+      answer = 'People seem to think it\'s cold there right now, but maybe you just need to toughen up!';
       waitTime =2000;
-      question = 'Whats your favorite place?';
+      question = 'Whats your favorite place to escape to for a vacation when it is cold out where you live?';
     }
     else if(input.toLowerCase()==='no'|| input===0){
-        socket.emit('changeFont','white'); /// we really should look up the inverse of what we said befor.
-        answer='How about now?'
-        question='';
-        waitTime =0;
-        questionNum--; // Here we go back in the question number this can end up in a loop
-    }else{
-      answer=' I did not understand you. Can you please answer with simply with yes or no.'
-      question='';
+        answer='That\'s the spirit!'
+        waitTime = 2000;
+        question = 'Where is your favorite place to go enjoy some fabulous winter weather?';
+    }
+    else{
+      answer = '';
+      question = 'I\'m a bit hard of hearing. Can you please answer with yes or no.';
       questionNum--;
-      waitTime =0;
+      waitTime = 0;
     }
   // load next question
   }
   else{
-    answer= 'I have nothing more to say!';// output response
+    answer= 'I have nothing more to say! Bundle up out there and stay warm!';// output response
     waitTime =0;
     question = '';
   }
